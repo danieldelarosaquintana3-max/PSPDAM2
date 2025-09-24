@@ -1,16 +1,14 @@
-import java.util.Scanner;
+import java.io.IOException;
 
 public class Tests {
-    public static void main(String[] args) {
-    	Scanner sc =  new Scanner(System.in);
+   
+	public static void main(String[] args) throws IOException, InterruptedException {
+		ProcessBuilder pb =  new ProcessBuilder("neofetch");
+		Process p = pb.start();
+		
+		System.out.println(p.waitFor());
+		
+		
+	}		
     	
-    	try {
-			int x =  sc.nextInt();
-			int y = sc.nextInt();
-			
-			System.out.println(x + y);
-		} catch (Exception e) {
-			System.err.println(e);
-		}
-    }
 }

@@ -3,7 +3,6 @@ package Unidad1.Ejemplos1;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Iterator;
 
 public class BufferedReadWriterExcercise {
 	public static void main(String[] args) throws IOException {
