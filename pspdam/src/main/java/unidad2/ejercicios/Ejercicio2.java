@@ -7,17 +7,16 @@ public class Ejercicio2 {
 					
 					@Override
 					public void run() {
-						for(;;) {
 							System.out.println("TIC");
 							try {
 								Thread.sleep(1000);
+								
 							} catch (InterruptedException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 						}
 						
-					}
 				}
 		);
 		
@@ -26,10 +25,11 @@ public class Ejercicio2 {
 					
 					@Override
 					public void run() {
-						for(;;) {
 							System.out.println("TAC");	
 							try {
 								Thread.sleep(1000);
+								t1.start();
+								
 							} catch (InterruptedException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
@@ -37,12 +37,10 @@ public class Ejercicio2 {
 						}
 						
 						
-					}
 				}
 		);
 		
-		t1.start();
-		t2.start();
+		
 		
 	}
 }
