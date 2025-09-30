@@ -1,15 +1,22 @@
 public class Tests2 {
+	private static Tests c =  new Tests(100);
+	
+	public static void run() {
+		for (int i = 0; i < 100; i++) {
+
+			c.inc();
+			try {
+			Thread.sleep(10);
+			} catch (InterruptedException e) {}
+		}
+	}
 	public static void main(String[] args) throws InterruptedException   {
-		Thread r =  new Thread(() -> {
-			while(!Thread.currentThread().isInterrupted()) {
-				System.out.println("a");
-			}
-			System.out.println("out");
-		});
-		 r.start();
-		 Thread.sleep(1000);
-		 r.interrupt();
-		 r.join();
-		 System.out.println("b");
+		Thread t1 = new Thread(Tests2::run);
+		Thread t2 = new Thread(Tests2::run);
+		t1.start();
+		t2.start();
+		t1.join();
+		t2.join();
+		System.out.println("Contador = " + c.get());
 	}
 }
