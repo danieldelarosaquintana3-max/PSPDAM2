@@ -1,15 +1,16 @@
 package unidad2.ejemplos;
 
 public class Almacen {
-    private int almacenados = 0;
+    private   int almacenados = 0;
     private String[] productos;
 
     public Almacen(int capacidad) {
         productos = new String[capacidad];
     }
 
-    public synchronized void almacenar(String producto) {
-        if (almacenados == productos.length) { // almacén lleno
+    public  synchronized void almacenar(String producto) {
+    	
+        while (almacenados == productos.length) { // almacén lleno
             try {
                 wait();
             } catch (InterruptedException e) {
@@ -21,7 +22,8 @@ public class Almacen {
     }
 
     public synchronized String retirar() {
-        if (almacenados == 0) { // almacén vacío
+        while (almacenados == 0) { // almacén vacío
+        	
             try {
                 wait();
             } catch (InterruptedException e) {
