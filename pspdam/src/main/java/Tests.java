@@ -1,22 +1,63 @@
 public class Tests {
 	
-	private int n;
-	
-	public Tests (int n) {
-		this.n = n;
+	public static class TicTacThread {
+		private boolean ticTurn = true;
 		
-	}	
-	
-	public  void inc() {
-		System.out.println("Incrementando");	
-		synchronized (this) {
-			this.n++;	
+		public synchronized void sysTic() {
+			while(!ticTurn) {
+				try {
+					wait();
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+			}
+			System.out.println("TIC");
+			ticTurn = false;
+			notifyAll();
+				
+			
+
 		}
-		
-		System.out.println("Incrementado");
-	}
+		public synchronized void sysTac() {
+			while (ticTurn) {
+				try {
+					wait();
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+			}
+			System.out.println("TAC");
+			ticTurn = true;
+			notifyAll();
+			
+		}
+	} 
 	
-	public synchronized int get() {
-		return this.n;
+	public static void main(String[] args) {
+		TicTacThread t =  new TicTacThread();
+		Thread ticThread = new Thread(() -> {
+			while(true) {
+				t.sysTic();
+				try {
+					Thread.sleep(1000);
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+			}
+		});
+		
+		Thread tacThread =  new Thread(() -> {
+			while(true) {
+				t.sysTac();
+				try {
+					Thread.sleep(1000);
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+			}
+		});
+		
+		ticThread.start();
+		tacThread.start();
 	}
 }
